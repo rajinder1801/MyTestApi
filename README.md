@@ -11,7 +11,7 @@ Testing Framework
 Xunit, NSubstitute, FluentAssertions
 
 Api Features(Non functional):  
-Swagger intgration
+Swagger integration  
 Azure App directory File Logger
 
 Unit Test Code Coverage - 87%
