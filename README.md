@@ -1,8 +1,8 @@
 # MyTestApi
 
-Api Url 		- 	https://testapi-raj.azurewebsites.net/
-Swagger Url 	- 	https://testapi-raj.azurewebsites.net/swagger
-Exercise Url's 	-	https://testapi-raj.azurewebsites.net/api/answers
+Api Url 		- 	https://testapi-raj.azurewebsites.net/  
+Swagger Url 	- 	https://testapi-raj.azurewebsites.net/swagger  
+Exercise Url's 	-	https://testapi-raj.azurewebsites.net/api/answers  
 
 Tech Stack
 .Net Core 3.1
