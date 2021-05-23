@@ -8,6 +8,6 @@ Xunit, NSubstitute, FluentAssertions
 
 Api Features(Non functional):
 Swagger intgration
-Azuere App directory File Logger
+Azure App directory File Logger
 
 Unit Test Code Coverage - 87%
