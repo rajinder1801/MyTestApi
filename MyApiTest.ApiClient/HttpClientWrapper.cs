@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +13,8 @@ namespace MyApiTest.ApiClient
     {
         private volatile bool _disposed;
         private readonly HttpClient _client;
+
+        internal HttpClient Client => _client;
 
         /// <summary>
         /// Creates an instance of the <see cref="HttpClientWrapper"/>.
@@ -31,12 +32,6 @@ namespace MyApiTest.ApiClient
 
             AddDefaultHeaders(defaultRequestHeaders);
         }
-
-        /// <summary>
-        /// Gets the headers which should be sent with each request.
-        /// </summary>
-        public IDictionary<string, string> DefaultRequestHeaders
-            => _client.DefaultRequestHeaders.ToDictionary(x => x.Key, x => x.Value.First());
 
         /// <summary>
         /// Sends the given <paramref name="request"/>.

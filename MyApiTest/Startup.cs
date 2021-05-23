@@ -7,13 +7,16 @@ using MyApiTest.ApiClient.Interfaces;
 using MyApiTest.Interfaces;
 using MyApiTest.Models.Config;
 using MyApiTest.Services;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace MyApiTest
 {
+    /// <summary>
+    /// Startup class that configures this web API including dependency injection setup.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
 

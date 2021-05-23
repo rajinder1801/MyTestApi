@@ -1,17 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="HttpClientWrapperTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="HttpClientWrapperTests.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />

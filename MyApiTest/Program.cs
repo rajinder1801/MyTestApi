@@ -3,10 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.AzureAppServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MyApiTest
 {
-    public class Program
+    /// <summary>
+    /// The entry point class for this self-hosted API application
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public static class Program
     {
         public static void Main(string[] args)
         {

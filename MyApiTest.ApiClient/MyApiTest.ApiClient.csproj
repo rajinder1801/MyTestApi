@@ -8,4 +8,10 @@
     <ProjectReference Include="..\MyApiTest.ApiClient.Interfaces\MyApiTest.ApiClient.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <!-- By convention the test project must be named the same as this project but with a suffix of .Tests -->
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 </Project>

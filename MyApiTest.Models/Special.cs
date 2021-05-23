@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MyApiTest.Models
 {
-    //public class Special
-    //{
-    //    public IEnumerable<ProductQuantity> Quantities { get; set; }
-    //    public int Total { get; set; }
-    //}
-
-    public class SpecialsGroup
+    public class Special
     {
-        public List<Quantity> quantities { get; set; }
-        public double total { get; set; }
+        [JsonProperty("quantities")]
+        public IEnumerable<ProductQuantity> Quantities { get; set; }
+        [JsonProperty("total")]
+        public double Total { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using MyApiTest.Interfaces;
 using MyApiTest.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,39 +14,39 @@ namespace MyApiTest.Services
         /// <returns>Minimum trolley amount.</returns>
         public double CalculateMinimumTotal(TrolleyRequest trolleyRequest)
         {
-            var tempTrolley = trolleyRequest.quantities;
+            var tempTrolley = trolleyRequest.Quantities;
             var totalsWithSpecials = new List<TrolleyTotalsWithSpecials>();
             var trolleyTotal = default(double);
             foreach (var item in tempTrolley)
             {
-                var specialOffer = trolleyRequest.specials.SelectMany(x => x.quantities)
-                    .Where(x => x !=null && x.name == item.name && item.quantity >= x.quantity).ToList();
+                var specialOffer = trolleyRequest.Specials.SelectMany(x => x.Quantities)
+                    .Where(x => x != null && x.Name == item.Name && item.Quantity >= x.Quantity).ToList();
                 if (specialOffer.Any())
                 {
                     ApplySpecials(trolleyRequest, totalsWithSpecials, item, specialOffer);
                 }
                 else
                 {
-                    var product = trolleyRequest.products.FirstOrDefault(x => x.name == item.name);
+                    var product = trolleyRequest.Products.FirstOrDefault(x => x.Name == item.Name);
                     totalsWithSpecials.Add(new TrolleyTotalsWithSpecials()
                     {
-                        itemName = item.name,
-                        quantity = item.quantity,
-                        billAmount = product != null ? product.price * item.quantity : default
+                        ItemName = item.Name,
+                        Quantity = item.Quantity,
+                        BillAmount = product != null ? product.Price * item.Quantity : default
                     });
                 }
             }
 
             foreach (var a in totalsWithSpecials)
             {
-                trolleyTotal += a.billAmount;
+                trolleyTotal += a.BillAmount;
             }
 
             return trolleyTotal;
         }
 
         private static void ApplySpecials(TrolleyRequest trolleyRequest, IList<TrolleyTotalsWithSpecials> totalsWithSpecials,
-            Quantity item, IEnumerable<Quantity> specialOffer)
+            ProductQuantity item, IEnumerable<ProductQuantity> specialOffer)
         {
             if (specialOffer == null || !specialOffer.Any())
             {
@@ -56,36 +55,36 @@ namespace MyApiTest.Services
 
             do
             {
-                var specialOfferQty = specialOffer.Max(x => x.quantity);
+                var specialOfferQty = specialOffer.Max(x => x.Quantity);
                 if (specialOfferQty == default)
                 {
                     continue;
                 }
 
-                int group = item.quantity / specialOfferQty;
-                int remainingQuantity = item.quantity % specialOfferQty;
-                var specialProduct = trolleyRequest.specials.FirstOrDefault(p => p.quantities.Any(y =>
-                    y.name == item.name && y.quantity == specialOfferQty));
+                int group = item.Quantity / specialOfferQty;
+                int remainingQuantity = item.Quantity % specialOfferQty;
+                var specialProduct = trolleyRequest.Specials.FirstOrDefault(p => p.Quantities.Any(y =>
+                    y.Name == item.Name && y.Quantity == specialOfferQty));
                 totalsWithSpecials.Add(new TrolleyTotalsWithSpecials()
                 {
-                    itemName = item.name,
-                    quantity = group,
-                    billAmount = specialProduct !=null ? specialProduct.total * group : default
+                    ItemName = item.Name,
+                    Quantity = group,
+                    BillAmount = specialProduct != null ? specialProduct.Total * group : default
                 });
-                item.quantity = remainingQuantity;
-                specialOffer = trolleyRequest.specials.SelectMany(x => x.quantities)
-                    .Where(x => x.name == item.name && item.quantity >= x.quantity && x.quantity != default);
+                item.Quantity = remainingQuantity;
+                specialOffer = trolleyRequest.Specials.SelectMany(x => x.Quantities)
+                    .Where(x => x.Name == item.Name && item.Quantity >= x.Quantity && x.Quantity != default);
 
-            } while (specialOffer.Any() && item.quantity >= specialOffer.Max(x => x.quantity));
+            } while (specialOffer.Any() && item.Quantity >= specialOffer.Max(x => x.Quantity));
 
-            if (item.quantity > 0)
+            if (item.Quantity > 0)
             {
-                var product = trolleyRequest.products.FirstOrDefault(x => x.name == item.name);
+                var product = trolleyRequest.Products.FirstOrDefault(x => x.Name == item.Name);
                 totalsWithSpecials.Add(new TrolleyTotalsWithSpecials
                 {
-                    itemName = item.name,
-                    quantity = item.quantity,
-                    billAmount = product !=null ? product.price * item.quantity : default
+                    ItemName = item.Name,
+                    Quantity = item.Quantity,
+                    BillAmount = product != null ? product.Price * item.Quantity : default
                 });
             }
         }

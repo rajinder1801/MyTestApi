@@ -2,8 +2,8 @@
 {
     public class TrolleyTotalsWithSpecials
     {
-        public string itemName { get; set; }
-        public double quantity { get; set; }
-        public double billAmount { get; set; }
+        public string ItemName { get; set; }
+        public double Quantity { get; set; }
+        public double BillAmount { get; set; }
     }
 }

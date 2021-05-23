@@ -20,10 +20,10 @@ namespace MyApiTest.Services
         {
             return sortOption switch
             {
-                SortOption.Low => products.OrderBy(x => x.price).AsEnumerable(),
-                SortOption.High => products.OrderByDescending(x => x.price).AsEnumerable(),
-                SortOption.Ascending => products.OrderBy(x => x.name).AsEnumerable(),
-                SortOption.Descending => products.OrderByDescending(x => x.name).AsEnumerable(),
+                SortOption.Low => products.OrderBy(x => x.Price).AsEnumerable(),
+                SortOption.High => products.OrderByDescending(x => x.Price).AsEnumerable(),
+                SortOption.Ascending => products.OrderBy(x => x.Name).AsEnumerable(),
+                SortOption.Descending => products.OrderByDescending(x => x.Name).AsEnumerable(),
                 SortOption.Recommended => RecommendedSort(products, shopperHistories),
                 _ => products,
             };
@@ -33,24 +33,24 @@ namespace MyApiTest.Services
             IEnumerable<ShopperHistory> shopperHistories)
         {
             var purchasedProducts = shopperHistories.SelectMany(x => x.Products).ToList();
-            var sortedPurchasedProducts = purchasedProducts.GroupBy(x => x.name)
-                .Select(x => new { Name = x.Key, Count = x.Sum(y => y.quantity) })
+            var sortedPurchasedProducts = purchasedProducts.GroupBy(x => x.Name)
+                .Select(x => new { Name = x.Key, Count = x.Sum(y => y.Quantity) })
                 .OrderByDescending(x => x.Count);
             var sortedResult = new List<Product>();
             foreach (var item in sortedPurchasedProducts)
             {
-                var product = purchasedProducts.First(x => x.name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
+                var product = purchasedProducts.First(x => x.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
                 sortedResult.Add(new Product()
                 {
-                    name = product.name,
-                    price = product.price
+                    Name = product.Name,
+                    Price = product.Price
                 });
             }
 
-            var nonPurchasedProducts = products.Select(x => x.name).Except(sortedResult.Select(x => x.name)).ToList();
+            var nonPurchasedProducts = products.Select(x => x.Name).Except(sortedResult.Select(x => x.Name)).ToList();
             if (nonPurchasedProducts.Any())
             {
-                sortedResult.AddRange(products.Where(x => nonPurchasedProducts.Contains(x.name)));
+                sortedResult.AddRange(products.Where(x => nonPurchasedProducts.Contains(x.Name)));
             }
             return sortedResult;
         }

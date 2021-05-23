@@ -1,17 +1,16 @@
-﻿namespace MyApiTest.Models
-{
-    //public class Product
-    //{
-    //    public string Name { get; set; }
-    //    public double Price { get; set; }
-    //    public double Quantity { get; set; }
-    //}
+﻿using Newtonsoft.Json;
 
+namespace MyApiTest.Models
+{
     public class Product
     {
-        public string name { get; set; }
-        public double price { get; set; }
-        public double quantity { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
+        [JsonProperty("price")]
+        public double Price { get; set; }
+
+        [JsonProperty("quantity")]
+        public double Quantity { get; set; }
     }
 }
